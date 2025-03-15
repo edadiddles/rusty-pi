@@ -7,6 +7,6 @@ edition = "2024"
 panic = "abort"
 
 [profile.release]
-panid = "abort"
+panic = "abort"
 
 [dependencies]
