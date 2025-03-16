@@ -1,5 +1,6 @@
 [build]
-target = "aarch64-rusty_pi.json"
+target = "x86_64-rusty_pi.json"
 
 [unstable]
+build-std-features = ["compiler-builtins-mem"]
 build-std = ["core", "compiler_builtins"]
