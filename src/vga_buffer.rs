@@ -44,7 +44,7 @@ use volatile::Volatile;
 
 #[repr(transparent)]
 struct Buffer {
-    chars: [[Volatile<ScreenChar>; BUFFER_HEIGHT]; BUFFER_HEIGHT],
+    chars: [[Volatile<ScreenChar>; BUFFER_WIDTH]; BUFFER_HEIGHT],
 }
 
 pub struct Writer {
@@ -126,4 +126,21 @@ lazy_static! {
         color_code: ColorCode::new(Color::Green, Color::Pink),
         buffer: unsafe { &mut *(0xb8000 as *mut Buffer) },
     });
+}
+
+#[macro_export]
+macro_rules! print {
+    ($($arg:tt)*) => ($crate::vga_buffer::_print(format_args!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! println {
+    () => ($create::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("{}\n", format_args!($($arg)*)));
+}
+
+#[doc(hidden)]
+pub fn _print(args: fmt::Arguments) {
+    use core::fmt::Write;
+    WRITER.lock().write_fmt(args).unwrap();
 }

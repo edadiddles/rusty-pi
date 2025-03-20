@@ -5,16 +5,14 @@ mod vga_buffer;
 
 use core::panic::PanicInfo;
 #[panic_handler]
-fn panic(_info: &PanicInfo) -> ! {
+fn panic(info: &PanicInfo) -> ! {
+    println!("{}", info);
     loop {}
 }
 
 #[unsafe(no_mangle)]
 pub extern "C" fn _start() -> ! {
-    use core::fmt::Write;
-    vga_buffer::WRITER.lock().write_str("Hello Rusty Pi").unwrap();
-    write!(vga_buffer::WRITER.lock(), "numbers {} {}", 1, 1.337).unwrap();
-    loop{}
+    println!("Hello\nRusty\nPi");
+    panic!("I'm panic");
+    //loop{}
 }
-
-

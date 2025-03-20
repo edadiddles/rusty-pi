@@ -5,6 +5,8 @@ References being used
  - https://github.com/rust-embedded/rust-raspberrypi-OS-tutorials
  - https://wiki.osdev.org
 
+Things to Reconsider:
+ - remove spin dependency for own impl of mutex
 
 OS Targets:
  - x86_64-rusty_pi.json (currently using to make progress)
